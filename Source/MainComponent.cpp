@@ -11,7 +11,7 @@
 //==============================================================================
 MainComponent::MainComponent()
 {
-    std::cout << "MainComponent sees sign's config...." << sign.config->getMixingMessage(0) << std::endl;
+    //std::cout << "MainComponent sees sign's config...." << sign.config->getMixingMessage(0) << std::endl;
     addAndMakeVisible (sign);
     addAndMakeVisible (menuBar);
     MenuBarModel::setMacMainMenu(this);

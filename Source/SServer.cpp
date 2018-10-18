@@ -71,6 +71,7 @@ void SServer::run()
         ssize_t charsRead = recv (clientSocket, messageBuffer, sizeof (messageBuffer), 0);
         if (charsRead > 0)
         {
+            cout << messageBuffer << endl;
             sendActionMessage (static_cast<String>(messageBuffer));
             memset (messageBuffer, 0, sizeof (messageBuffer));
         }

@@ -23,7 +23,7 @@ SignComponent::SignComponent()
     server.addActionListener(this);
     server.startThread();
     config = std::make_shared<SConfig>();
-    std::cout << "SignComponent got config...." << config->getMixingMessage(0) << std::endl;
+    //std::cout << "SignComponent got config...." << config->getMixingMessage(0) << std::endl;
     
     strStatus = config->getMixingMessage(0);
     strProjectName = config->getProjectName(0);
@@ -108,13 +108,13 @@ void SignComponent::actionListenerCallback (const String & message)
 {
     
     std::cout << "received message: " << message << std::endl;
-    strStatus = message;
-    if (message == "screening_start\n")
+    //strStatus = message;
+    if (message == "screening_start")
     {
         strStatus = config->getScreeningMessage(0);
         setScreeningMode(true);
     }
-    if (message == "screening_stop\n")
+    if (message == "screening_stop")
     {
         strStatus = config->getMixingMessage(0);
         setScreeningMode(false);
