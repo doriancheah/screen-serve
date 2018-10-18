@@ -27,7 +27,7 @@ public:
 private:
     socklen_t serverSocket;
     int clientSocket;
-    int serverPort = 12345;
+    int serverPort = 3001;
     struct sockaddr_in serverAddr;
     struct sockaddr_in clientAddr;
     socklen_t clientSize;

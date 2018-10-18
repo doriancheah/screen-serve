@@ -18,9 +18,9 @@ public:
     //==============================================================================
     ScreenServe424Application() {}
 
-    const String getApplicationName() override       { return ProjectInfo::projectName; }
-    const String getApplicationVersion() override    { return ProjectInfo::versionString; }
-    bool moreThanOneInstanceAllowed() override       { return true; }
+    const String getApplicationName() override       { return "Screen Serve 424"; }
+    const String getApplicationVersion() override    { return "Version 0.4"; }
+    bool moreThanOneInstanceAllowed() override       { return false; }
 
     //==============================================================================
     void initialise (const String& commandLine) override

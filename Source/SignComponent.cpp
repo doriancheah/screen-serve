@@ -21,7 +21,7 @@ SignComponent::SignComponent()
     
     // register the sign component as a listener to the SServer instance and start the thread.
     server.addActionListener(this);
-    //server.startThread();
+    server.startThread();
     config = std::make_shared<SConfig>();
     std::cout << "SignComponent got config...." << config->getMixingMessage(0) << std::endl;
     
