@@ -17,7 +17,7 @@
 //==============================================================================
 /*
 */
-class SignComponent    : public AnimatedAppComponent,
+class SignComponent    : public Component,
                          public ActionListener
 
 {
@@ -27,7 +27,6 @@ public:
 
     void paint (Graphics&) override;
     void resized () override;
-    void update () override;
     void actionListenerCallback (String const& message) override;
     
     std::shared_ptr<SConfig> config;
@@ -48,7 +47,7 @@ private:
     String strStatus;
     String strProjectName;
     String strDirector;
-    bool screeningMode;
+
     SignModes signMode;
     Colour signColour = Colours::darkslateblue;
     

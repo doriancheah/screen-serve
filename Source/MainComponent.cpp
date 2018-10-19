@@ -2,6 +2,7 @@
 
 MainComponent::MainComponent()
 {
+    addAndMakeVisible (anim);
     addAndMakeVisible (sign);
     addAndMakeVisible (menuBar);
     MenuBarModel::setMacMainMenu(this);
@@ -92,4 +93,5 @@ void MainComponent::paint (Graphics& g)
 void MainComponent::resized()
 {
     sign.setBounds(0, 0, getWidth(), getHeight());
+    anim.setBounds(0, 0, getWidth(), getHeight());
 }

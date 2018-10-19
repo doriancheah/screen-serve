@@ -3,6 +3,9 @@
 <JUCERPROJECT id="y3zbgg" name="ScreenServe424" projectType="guiapp" jucerVersion="5.3.2">
   <MAINGROUP id="LLVEeX" name="ScreenServe424">
     <GROUP id="{FB5490DE-A68F-C76E-6908-01998F69F6CC}" name="Source">
+      <FILE id="Xxyus7" name="AnimComponent.cpp" compile="1" resource="0"
+            file="Source/AnimComponent.cpp"/>
+      <FILE id="ieEHlT" name="AnimComponent.h" compile="0" resource="0" file="Source/AnimComponent.h"/>
       <FILE id="Chw9LT" name="SConfig.cpp" compile="1" resource="0" file="Source/SConfig.cpp"/>
       <FILE id="mnlFv6" name="SConfig.h" compile="0" resource="0" file="Source/SConfig.h"/>
       <FILE id="A2nkSe" name="SignComponent.cpp" compile="1" resource="0"

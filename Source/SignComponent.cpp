@@ -14,7 +14,8 @@
 //==============================================================================
 SignComponent::SignComponent()
 {
-    setFramesPerSecond(60);
+
+
     
     // register the sign component as a listener to the SServer instance and start the thread.
     server.addActionListener(this);
@@ -23,10 +24,7 @@ SignComponent::SignComponent()
     // instantiate the config object to get the app settings.
     config = std::make_shared<SConfig>();
     
-    // set default sign settings.
-    strStatus = config->getMixingMessage();
-    strProjectName = config->getProjectName();
-    strDirector = "Director: " + config->getDirectorName();
+    setSignMode(SignModes::modeMixing);
 }
 
 SignComponent::~SignComponent()
@@ -47,40 +45,24 @@ void SignComponent::paint (Graphics& g)
     g.drawText (getStatus(signMode), 0, getHeight() * 0.4f, getWidth(), getHeight() * 0.12f, Justification::centredTop, true);
     g.setFont (getHeight() * 0.05f);
     g.setOpacity (0.75f);
-    g.drawText (strProjectName, 0, getHeight() * 0.6f, getWidth(), getHeight() * 0.12f, Justification::centredTop, true);
-    g.drawText (strDirector, 0, getHeight() * 0.7f, getWidth(), getHeight() * 0.12f, Justification::centredTop, true);
+    
+    g.drawText (signMode == SignModes::modeDark ? "" : config->getProjectName(),
+                0,
+                getHeight() * 0.6f,
+                getWidth(),
+                getHeight() * 0.12f,
+                Justification::centredTop,
+                true);
+    
+    g.drawText (signMode == SignModes::modeDark ? "" : config->getDirectorName(),
+                0,
+                getHeight() * 0.7f,
+                getWidth(),
+                getHeight() * 0.12f,
+                Justification::centredTop,
+                true);
     
 
-    
-    // animation demo -------------------------------------------------------------------------------------------------
-//
-//    auto fishLength = 15;
-//
-//    Path spinePath;
-//
-//    int counterclockwise = screeningMode ? 1 : -1;
-//
-//    for (auto i = 0; i < fishLength; i++)
-//    {
-//        auto radius = 200 + 20 * std::sin (getFrameCounter() * 0.3f + i * 0.6f);
-//        //auto radius = 200;
-//
-//
-//        Point<float> p (getWidth()  / 2.0f + 1.5f * radius * std::sin (getFrameCounter() * 0.04f + i * 0.13f) * counterclockwise,
-//                        getHeight() / 2.0f + 1.5f * radius * std::cos (getFrameCounter() * 0.04f + i * 0.18f));
-//        g.setOpacity(0.2f);
-//        g.fillEllipse (p.x - i, p.y - i, 2.0f + 2.0f * i, 2.0f + 2.0f * i);
-//        
-//        if (i == 0)
-//            spinePath.startNewSubPath (p);
-//        else
-//            spinePath.lineTo (p);
-//    }
-//    g.setColour (Colours::cornflowerblue);
-//    g.setOpacity(0.1f);
-//    g.strokePath (spinePath, PathStrokeType (4.0f));
-//
-    // end animation -------------------------------------------------------------------------------------------------
 
 }
 
@@ -88,12 +70,6 @@ void SignComponent::resized()
 {
 
 }
-
-void SignComponent::update()
-{
-    
-}
-
 
 // The callback function for SServer, called when SServer receives its message. We check for the special strings from
 // Vantage system and set the sign mode accordingly.
@@ -119,6 +95,7 @@ void SignComponent::actionListenerCallback (const String & message)
 void SignComponent::setSignMode(SignModes const& mode)
 {
     signMode = mode;
+    repaint();
 }
 
 Colour SignComponent::getSignColour(SignModes const& mode) const

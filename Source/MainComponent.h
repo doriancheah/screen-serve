@@ -11,6 +11,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "SignComponent.h"
 #include "SConfig.h"
+#include "AnimComponent.h"
 
 class MainComponent   : public Component,
                         public MenuBarModel,
@@ -48,6 +49,7 @@ private:
     ApplicationCommandManager commandManager;
     FileChooser fileChooser { "hello", File("~"), "*.json", false };
     std::shared_ptr<SConfig> config;
-
+    AnimComponent anim;
+    
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };
