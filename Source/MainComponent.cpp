@@ -1,25 +1,13 @@
-/*
-  ==============================================================================
-
-    This file was auto-generated!
-
-  ==============================================================================
-*/
-
 #include "MainComponent.h"
 
-//==============================================================================
 MainComponent::MainComponent()
 {
-    //std::cout << "MainComponent sees sign's config...." << sign.config->getMixingMessage(0) << std::endl;
     addAndMakeVisible (sign);
     addAndMakeVisible (menuBar);
     MenuBarModel::setMacMainMenu(this);
     setApplicationCommandManagerToWatch(&commandManager);
     commandManager.registerAllCommandsForTarget(this);
     
-    // Make sure you set the size of the component after
-    // you add any child components.
     setSize (800, 600);
 }
 
@@ -98,16 +86,10 @@ bool MainComponent::perform (InvocationInfo const& info)
 //==============================================================================
 void MainComponent::paint (Graphics& g)
 {
-    // (Our component is opaque, so we must completely fill the background with a solid colour)
-    //g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
 
-    // You can add your drawing code here!
 }
 
 void MainComponent::resized()
 {
-    // This is called when the MainContentComponent is resized.
-    // If you add any child components, this is where you should
-    // update their positions.
     sign.setBounds(0, 0, getWidth(), getHeight());
 }

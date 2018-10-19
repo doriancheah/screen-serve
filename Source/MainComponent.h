@@ -1,7 +1,7 @@
 /*
   ==============================================================================
 
-    This file was auto-generated!
+  MainComponent owns the SignComponent, MenuBarComponent and the FileChooser.
 
   ==============================================================================
 */
@@ -12,17 +12,11 @@
 #include "SignComponent.h"
 #include "SConfig.h"
 
-//==============================================================================
-/*
-    This component lives inside our window, and this is where you should put all
-    your controls and content.
-*/
 class MainComponent   : public Component,
                         public MenuBarModel,
                         public ApplicationCommandTarget
 {
 public:
-    //==============================================================================
     MainComponent();
     ~MainComponent();
     
@@ -37,9 +31,8 @@ public:
     void getAllCommands (Array<CommandID>& c) override;
     void getCommandInfo (CommandID commandID, ApplicationCommandInfo &result) override;
     bool perform (InvocationInfo const& info) override;
-    
-    
-    //==============================================================================
+
+    // -------------------------------------------------------------------------------
     void paint (Graphics& g) override;
     void resized() override;
 
@@ -50,8 +43,6 @@ public:
     };
     
 private:
-    //==============================================================================
-    // Your private member variables go here...
     SignComponent sign;
     MenuBarComponent menuBar;
     ApplicationCommandManager commandManager;

@@ -28,17 +28,31 @@ public:
     void paint (Graphics&) override;
     void resized () override;
     void update () override;
-    void actionListenerCallback (const String & message) override;
-    void setScreeningMode (bool isScreening);
+    void actionListenerCallback (String const& message) override;
+    
     std::shared_ptr<SConfig> config;
+    
+    enum SignModes
+    {
+        modeScreening = 1,
+        modeMixing,
+        modeDark
+    };
+    
+    void setSignMode (SignModes const& mode);
+    String getStatus (SignModes const& mode) const;
+    SignModes getSignMode ();
     
 private:
     SServer server;
-    String strStatus = "Mix in progress. Please enter quietly.";
-    String strProjectName = "E.T.";
-    String strDirector = "Steven Spielberg";
+    String strStatus;
+    String strProjectName;
+    String strDirector;
     bool screeningMode;
+    SignModes signMode;
     Colour signColour = Colours::darkslateblue;
+    
+    Colour getSignColour(SignModes const& mode) const;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SignComponent)
 };

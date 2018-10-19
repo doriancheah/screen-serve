@@ -5,15 +5,26 @@
     Created: 17 Oct 2018 10:37:24am
     Author:  Dorian Cheah
 
+    Manages the applications settings (for now, just the text that is displayed
+    on the sign in various modes).
+ 
   ==============================================================================
 */
 
 #include "SConfig.h"
+using std::cout;
+using std::endl;
 
 SConfig::SConfig()
 {
-    config = readConfigFromSetupFile();
+    // load the default config file when we start up.
+    config = JSON::parse(getDefaultConfigFile()).getDynamicObject();
+}
 
+SConfig::~SConfig()
+{
+    // write the current config to the default config file when we quit, so the settings are "sticky".
+    saveToDefaultConfigFile();
 }
 
 var SConfig::readConfig (const String & jsonString)
@@ -21,39 +32,50 @@ var SConfig::readConfig (const String & jsonString)
     return JSON::parse (jsonString);
 }
 
-var SConfig::readConfigFromSetupFile()
+// returns default.conf file in user's /Library/ScreenServe424 directory, creating it if it doesn't exist.
+File SConfig::getDefaultConfigFile() const
 {
-    File configFile ("~/ss424setup.json");
-    return JSON::parse (configFile);
-}
-
-bool SConfig::writeConfigToSetupFile()
-{
-    File configFile ("~/ss424setup1.json");
-    configFile.deleteFile();
+    File defaultFile (File::getSpecialLocation(File::SpecialLocationType::userApplicationDataDirectory).getFullPathName()
+                      + "/ScreenServe424/default.conf");
+    if (! defaultFile.exists())
+    {
+        defaultFile.create();
+        String strDefault = "{\"mixingMessage\": \"Mix In Progress. Please Enter Quietly.\",\"screeningMessage\": \"Screening In Progress. Do Not Enter.\",\"projectName\": \"Project Name\",\"directorName\": \"Director Name\"}";
+        
+        jassert (defaultFile.replaceWithText(strDefault));
+    }
     
-    FileOutputStream configFileStream (configFile);
-    JSON::writeToStream(configFileStream, config);
-    
-    return true;
+    return defaultFile;
 }
 
-String SConfig::getMixingMessage(int const& setupNum)
+// saves current config to the default.conf file.
+void SConfig::saveToDefaultConfigFile() const
 {
-    return config["config"][setupNum]["mixingMessage"];
+    File defaultFile (File::getSpecialLocation(File::SpecialLocationType::userApplicationDataDirectory).getFullPathName()
+                      + "/ScreenServe424/default.conf");
+    MemoryOutputStream outStream;
+    config->writeAsJSON(outStream, 3, false, 0);
+    defaultFile.replaceWithText(outStream.toString());
 }
 
-String SConfig::getScreeningMessage(int const& setupNum)
+
+// PUBLIC GETTERS ---------------------------------------------------------------
+String SConfig::getMixingMessage()
 {
-    return config["config"][setupNum]["screeningMessage"];
+    return config->getProperty("mixingMessage");
 }
 
-String SConfig::getProjectName(int const& setupNum)
+String SConfig::getScreeningMessage()
 {
-    return config["config"][setupNum]["projectName"];
+    return config->getProperty("screeningMessage");
 }
 
-String SConfig::getDirectorName(int const& setupNum)
+String SConfig::getProjectName()
 {
-    return config["config"][setupNum]["directorName"];
+    return config->getProperty("projectName");
+}
+
+String SConfig::getDirectorName()
+{
+    return config->getProperty("directorName");
 }
