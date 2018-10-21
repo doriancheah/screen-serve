@@ -59,23 +59,44 @@ void SConfig::saveToDefaultConfigFile() const
 }
 
 
-// PUBLIC GETTERS ---------------------------------------------------------------
-String SConfig::getMixingMessage()
+// GETTERS ---------------------------------------------------------------
+String SConfig::getMixingMessage() const
 {
     return config->getProperty("mixingMessage");
 }
 
-String SConfig::getScreeningMessage()
+String SConfig::getScreeningMessage() const
 {
     return config->getProperty("screeningMessage");
 }
 
-String SConfig::getProjectName()
+String SConfig::getProjectName() const
 {
     return config->getProperty("projectName");
 }
 
-String SConfig::getDirectorName()
+String SConfig::getDirectorName() const
 {
     return config->getProperty("directorName");
+}
+
+// SETTERS ----------------------------------------------------------------
+void SConfig::setScreeningMessage (String const& msg)
+{
+    config->setProperty ("screeningMessage", msg);
+}
+
+void SConfig::setMixingMessage (String const& msg)
+{
+    config->setProperty ("mixingMessage", msg);
+}
+
+void SConfig::setProjectName (String const& name)
+{
+    config->setProperty ("projectName", name);
+}
+
+void SConfig::setDirectorName (String const& name)
+{
+    config->setProperty ("directorName", name);
 }

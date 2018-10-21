@@ -14,9 +14,6 @@
 //==============================================================================
 SignComponent::SignComponent()
 {
-
-
-    
     // register the sign component as a listener to the SServer instance and start the thread.
     server.addActionListener(this);
     server.startThread();
@@ -34,8 +31,6 @@ SignComponent::~SignComponent()
 
 void SignComponent::paint (Graphics& g)
 {
-    g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));   // clear the background
-
     g.setColour (getSignColour(signMode));
     g.fillAll();
 
@@ -61,9 +56,6 @@ void SignComponent::paint (Graphics& g)
                 getHeight() * 0.12f,
                 Justification::centredTop,
                 true);
-    
-
-
 }
 
 void SignComponent::resized()

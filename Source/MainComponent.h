@@ -39,7 +39,7 @@ public:
 
     enum CommandIDs
     {
-        setupLoad = 1,
+        setupEdit = 1,
         setupSave
     };
     

@@ -49,7 +49,7 @@ void SServer::run()
     }
     else if (bindReturn == 0)
     {
-        cout << "bound..." << endl;
+        cout << "bound socket..." << endl;
     }
     // listen for connection
     int isListening = listen (serverSocket, SOMAXCONN);
@@ -69,7 +69,7 @@ void SServer::run()
     // read from client -- BLOCKING
     while (1)
     {
-        cout << "in loop." << endl;
+        cout << "waiting to receive..." << endl;
         if (threadShouldExit())
         {
             break;
@@ -86,6 +86,5 @@ void SServer::run()
             cerr << "Read error - " << strerror(errno) << endl;
             break;
         }
-
     }
 }

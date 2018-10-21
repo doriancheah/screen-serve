@@ -23,13 +23,17 @@ public:
 
     void saveToDefaultConfigFile() const;
     
-    String getMixingMessage();
-    String getScreeningMessage();
-    String getProjectName();
-    String getDirectorName();
+    String getMixingMessage() const;
+    String getScreeningMessage() const;
+    String getProjectName() const;
+    String getDirectorName() const;
+    
+    void setMixingMessage (String const& msg);
+    void setScreeningMessage (String const& msg);
+    void setProjectName (String const& msg);
+    void setDirectorName (String const& msg);
     
 private:
     File getDefaultConfigFile() const;
     DynamicObject::Ptr config = nullptr;
-    
 };
