@@ -65,7 +65,7 @@ bool MainComponent::perform (InvocationInfo const& info)
     {
         case CommandIDs::setupEdit:
         {
-            AlertWindow w ("hi", "Change the sign", AlertWindow::NoIcon);
+            AlertWindow w ("Edit Setup", "", AlertWindow::NoIcon);
 
             w.addTextEditor ("textScreening", sign.config->getScreeningMessage(), "Screening Message: ");
             w.addTextEditor ("textMixing", sign.config->getMixingMessage(), "Mixing Message: ");
