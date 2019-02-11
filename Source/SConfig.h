@@ -25,8 +25,13 @@ public:
     
     String getMixingMessage() const;
     String getScreeningMessage() const;
+    Image getMixingImage() const;
+    Image getScreeningImage() const;
     String getProjectName() const;
     String getDirectorName() const;
+    
+    String getMixingImageFilename() const;
+    String getScreeningImageFilename() const;
     
     void setMixingMessage (String const& msg);
     void setScreeningMessage (String const& msg);

@@ -58,12 +58,39 @@ void SConfig::saveToDefaultConfigFile() const
     defaultFile.replaceWithText(outStream.toString());
 }
 
+String SConfig::getMixingImageFilename() const
+{
+    return File::getSpecialLocation(File::SpecialLocationType::userApplicationDataDirectory).getFullPathName()
+    + "/ScreenServe424/Mixing.jpg";
+}
+
+String SConfig::getScreeningImageFilename() const
+{
+    return File::getSpecialLocation(File::SpecialLocationType::userApplicationDataDirectory).getFullPathName()
+    + "/ScreenServe424/Screening.jpg";
+}
+
+
+
 
 // GETTERS ---------------------------------------------------------------
 String SConfig::getMixingMessage() const
 {
     return config->getProperty("mixingMessage");
 }
+
+Image SConfig::getMixingImage() const
+{
+    File fileMixingImage (getMixingImageFilename());
+    return ImageFileFormat::loadFrom (fileMixingImage);
+}
+
+Image SConfig::getScreeningImage() const
+{
+    File fileScreeningImage (getScreeningImageFilename());
+    return ImageFileFormat::loadFrom (fileScreeningImage);
+}
+
 
 String SConfig::getScreeningMessage() const
 {

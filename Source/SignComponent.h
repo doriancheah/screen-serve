@@ -40,6 +40,7 @@ public:
     
     void setSignMode (SignModes const& mode);
     String getStatus (SignModes const& mode) const;
+    Image getImage (SignModes const& mode) const;
     SignModes getSignMode ();
     
 private:
@@ -52,6 +53,7 @@ private:
     Colour signColour = Colours::darkslateblue;
     
     Colour getSignColour(SignModes const& mode) const;
+
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SignComponent)
 };

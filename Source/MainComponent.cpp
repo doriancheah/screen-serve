@@ -4,14 +4,13 @@ using std::endl;
 
 MainComponent::MainComponent()
 {
-    addAndMakeVisible (anim);
     addAndMakeVisible (sign);
     addAndMakeVisible (menuBar);
     MenuBarModel::setMacMainMenu(this);
     setApplicationCommandManagerToWatch(&commandManager);
     commandManager.registerAllCommandsForTarget(this);
     
-    setSize (800, 600);
+    setSize (600, 600);
 }
 
 MainComponent::~MainComponent()
@@ -31,6 +30,8 @@ PopupMenu MainComponent::getMenuForIndex(int menuIndex, const String& /*menuName
     if (menuIndex == 0)
     {
         menu.addCommandItem(&commandManager, CommandIDs::setupEdit);
+        menu.addCommandItem(&commandManager, CommandIDs::setupChooseMixingImage);
+        menu.addCommandItem(&commandManager, CommandIDs::setupChooseScreeningImage);
     }
     
     return menu;
@@ -42,7 +43,10 @@ void MainComponent::menuBarActivated (bool isActive) {}
 
 void MainComponent::getAllCommands(Array<CommandID>& c)
 {
-    Array<CommandID> commands { CommandIDs::setupEdit };
+    Array<CommandID> commands { CommandIDs::setupEdit,
+                                CommandIDs::setupChooseMixingImage,
+                                CommandIDs::setupChooseScreeningImage
+    };
     c.addArray (commands);
 }
 
@@ -53,6 +57,12 @@ void MainComponent::getCommandInfo (CommandID commandID, ApplicationCommandInfo&
         case CommandIDs::setupEdit:
             result.setInfo ("Edit Setup", "Edit setup", "Setup", 0);
             result.addDefaultKeypress ('l', ModifierKeys::commandModifier);
+            break;
+        case CommandIDs::setupChooseMixingImage:
+            result.setInfo ("Choose Mixing Image", "Choose mxing image", "Setup", 0);
+            break;
+        case CommandIDs::setupChooseScreeningImage:
+            result.setInfo ("Choose Screening Image", "Choose screening image", "Setup", 0);
             break;
         default:
             break;
@@ -87,6 +97,32 @@ bool MainComponent::perform (InvocationInfo const& info)
             }
             break;
         }
+          
+        case CommandIDs::setupChooseMixingImage:
+        {
+            FileChooser chooser ("Select an image file to display in Mixing mode...", {}, "*.jpg", false);
+            if (chooser.browseForFileToOpen())
+            {
+                auto file = chooser.getResult();
+                file.copyFileTo(config->getMixingImageFilename());
+                sign.repaint();
+            }
+            break;
+        }
+
+        case CommandIDs::setupChooseScreeningImage:
+        {
+            FileChooser chooser ("Select an image file to display in Screening mode...", {}, "*.jpg", false);
+            if (chooser.browseForFileToOpen())
+            {
+                auto file = chooser.getResult();
+                file.copyFileTo(config->getScreeningImageFilename());
+                sign.repaint();
+            }
+            break;
+        }
+
+            
         default:
             return false;
     }
@@ -102,5 +138,4 @@ void MainComponent::paint (Graphics& g)
 void MainComponent::resized()
 {
     sign.setBounds(0, 0, getWidth(), getHeight());
-    anim.setBounds(0, 0, getWidth(), getHeight());
 }
