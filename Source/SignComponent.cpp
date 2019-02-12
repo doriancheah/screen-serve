@@ -16,8 +16,8 @@
 SignComponent::SignComponent()
 {
     // register the sign component as a listener to the SServer instance and start the thread.
-    //server.addActionListener(this);
-    //server.startThread();
+    server.addActionListener(this);
+    server.startThread();
     
     // instantiate the config object to get the app settings.
     config = std::make_shared<SConfig>();
@@ -40,9 +40,10 @@ void SignComponent::paint (Graphics& g)
 
     float sourceAR = static_cast <float> (img.getWidth()) / static_cast <float> (img.getHeight());
     float targetAR = static_cast <float> (getWidth()) / static_cast <float> (getHeight());
-    std::cout << "source dimensions: " << img.getWidth() << " x " << img.getHeight() << std::endl;
-    std::cout << "sourceAR " << std::fixed << std::setprecision(3) << sourceAR << std::endl;
-    std::cout << "targetAR " << std::fixed << std::setprecision(3) << targetAR << std::endl;
+    
+    //std::cout << "source dimensions: " << img.getWidth() << " x " << img.getHeight() << std::endl;
+    //std::cout << "sourceAR " << std::fixed << std::setprecision(3) << sourceAR << std::endl;
+    //std::cout << "targetAR " << std::fixed << std::setprecision(3) << targetAR << std::endl;
     
     // if sourceAR > targetAR, our source image is wider than target, so we have to crop horizontally, meaning
     // sourceX should be > 0 and sourceWidth should be < img.getWidth().

@@ -10,7 +10,7 @@ MainComponent::MainComponent()
     setApplicationCommandManagerToWatch(&commandManager);
     commandManager.registerAllCommandsForTarget(this);
     
-    setSize (600, 600);
+    setSize (800, 600);
 }
 
 MainComponent::~MainComponent()
@@ -55,8 +55,8 @@ void MainComponent::getCommandInfo (CommandID commandID, ApplicationCommandInfo&
     switch (commandID)
     {
         case CommandIDs::setupEdit:
-            result.setInfo ("Edit Setup", "Edit setup", "Setup", 0);
-            result.addDefaultKeypress ('l', ModifierKeys::commandModifier);
+            result.setInfo ("Edit Text Labels", "Edit setup", "Setup", 0);
+            //result.addDefaultKeypress ('l', ModifierKeys::commandModifier);
             break;
         case CommandIDs::setupChooseMixingImage:
             result.setInfo ("Choose Mixing Image", "Choose mxing image", "Setup", 0);
@@ -75,7 +75,7 @@ bool MainComponent::perform (InvocationInfo const& info)
     {
         case CommandIDs::setupEdit:
         {
-            AlertWindow w ("Edit Setup", "", AlertWindow::NoIcon);
+            AlertWindow w ("Edit Text Labels", "", AlertWindow::NoIcon);
 
             w.addTextEditor ("textScreening", sign.config->getScreeningMessage(), "Screening Message: ");
             w.addTextEditor ("textMixing", sign.config->getMixingMessage(), "Mixing Message: ");
@@ -105,7 +105,7 @@ bool MainComponent::perform (InvocationInfo const& info)
             {
                 auto file = chooser.getResult();
                 file.copyFileTo(config->getMixingImageFilename());
-                sign.repaint();
+                sign.setSignMode(SignComponent::SignModes::modeMixing);
             }
             break;
         }
@@ -117,7 +117,8 @@ bool MainComponent::perform (InvocationInfo const& info)
             {
                 auto file = chooser.getResult();
                 file.copyFileTo(config->getScreeningImageFilename());
-                sign.repaint();
+                sign.setSignMode(SignComponent::SignModes::modeScreening);
+                //sign.repaint();
             }
             break;
         }

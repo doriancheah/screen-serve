@@ -49,7 +49,7 @@ private:
     SignComponent sign;
     MenuBarComponent menuBar;
     ApplicationCommandManager commandManager;
-    FileChooser fileChooser { "hello", File("~"), "*.json", false };
+    //FileChooser fileChooser { "hello", File("~"), "*.json", false };
     std::shared_ptr<SConfig> config;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)

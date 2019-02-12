@@ -18,8 +18,8 @@ public:
     //==============================================================================
     ScreenServe424Application() {}
 
-    const String getApplicationName() override       { return "Screen Serve 424 v1.1"; }
-    const String getApplicationVersion() override    { return "Version 1.1"; }
+    const String getApplicationName() override       { return "Screen Serve 424 v1.2"; }
+    const String getApplicationVersion() override    { return "Version 1.2"; }
     bool moreThanOneInstanceAllowed() override       { return false; }
 
     //==============================================================================
