@@ -29,6 +29,8 @@ public:
     Image getScreeningImage() const;
     String getProjectName() const;
     String getDirectorName() const;
+    String getTextColour() const;
+    String getShadow() const;
     
     String getMixingImageFilename() const;
     String getScreeningImageFilename() const;
@@ -37,6 +39,8 @@ public:
     void setScreeningMessage (String const& msg);
     void setProjectName (String const& msg);
     void setDirectorName (String const& msg);
+    void setTextColour (String const& col);
+    void setShadow (String const& shadow);
     
 private:
     File getDefaultConfigFile() const;

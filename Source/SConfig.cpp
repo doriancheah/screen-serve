@@ -24,7 +24,7 @@ SConfig::SConfig()
 SConfig::~SConfig()
 {
     // write the current config to the default config file when we quit, so the settings are "sticky".
-    saveToDefaultConfigFile();
+    //saveToDefaultConfigFile();
 }
 
 var SConfig::readConfig (const String & jsonString)
@@ -40,7 +40,7 @@ File SConfig::getDefaultConfigFile() const
     if (! defaultFile.exists())
     {
         defaultFile.create();
-        String strDefault = "{\"mixingMessage\": \"Mix In Progress. Please Enter Quietly.\",\"screeningMessage\": \"Screening In Progress. Do Not Enter.\",\"projectName\": \"Project Name\",\"directorName\": \"Director Name\"}";
+        String strDefault = "{\"mixingMessage\": \"Mix In Progress. Please Enter Quietly.\",\"screeningMessage\": \"Screening In Progress. Do Not Enter.\",\"projectName\": \"Project Name\",\"directorName\": \"Director Name\",\"textColour\": \"ff696969\"}";
         
         jassert (defaultFile.replaceWithText(strDefault));
     }
@@ -107,6 +107,20 @@ String SConfig::getDirectorName() const
     return config->getProperty("directorName");
 }
 
+String SConfig::getTextColour() const
+{
+    if (! config->hasProperty("textColour"))
+    {
+        return "ffffffff";
+    }
+    return config->getProperty("textColour");
+}
+
+String SConfig::getShadow() const
+{
+    return config->getProperty("shadow");
+}
+
 // SETTERS ----------------------------------------------------------------
 void SConfig::setScreeningMessage (String const& msg)
 {
@@ -126,4 +140,14 @@ void SConfig::setProjectName (String const& name)
 void SConfig::setDirectorName (String const& name)
 {
     config->setProperty ("directorName", name);
+}
+
+void SConfig::setTextColour (String const& col)
+{
+    config->setProperty ("textColour", col);
+}
+
+void SConfig::setShadow (String const& shadow)
+{
+    config->setProperty ("shadow", shadow);
 }

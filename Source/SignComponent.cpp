@@ -10,7 +10,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "SignComponent.h"
-#include <iomanip>
+//#include <iomanip>
 
 //==============================================================================
 SignComponent::SignComponent()
@@ -67,40 +67,37 @@ void SignComponent::paint (Graphics& g)
         int sourceY = (img.getHeight() - sourceHeight) / 2;
         
         g.drawImage(img, 0, 0, getWidth(), getHeight(), 0, sourceY, img.getWidth(), sourceHeight);
-        
     }
     
-    
-    
-    g.setColour (Colours::white);
-    g.setFont (getHeight() * 0.1f);
-    g.setOpacity (1.0f);
-    g.drawText (getStatus(signMode), 0, getHeight() * 0.35f, getWidth(), getHeight() * 0.12f, Justification::centredTop, true);
-    g.setFont (getHeight() * 0.09f);
-    g.setOpacity (0.85f);
-    
-    
-    
-    
-    g.drawText (signMode == SignModes::modeDark ? "" : config->getProjectName(),
-                0,
-                getHeight() * 0.5f,
-                getWidth(),
-                getHeight() * 0.12f,
-                Justification::centredTop,
-                true);
-    
-    g.drawText (signMode == SignModes::modeDark ? "" : config->getDirectorName(),
-                0,
-                getHeight() * 0.6f,
-                getWidth(),
-                getHeight() * 0.12f,
-                Justification::centredTop,
-                true);
+    drawShadowText(g, getStatus(signMode), 0.35f, 0.11f);
+    drawShadowText(g, signMode == SignModes::modeDark ? "" : config->getProjectName(), 0.5f, 0.09f);
+    drawShadowText(g, signMode == SignModes::modeDark ? "" : config->getDirectorName(), 0.6f, 0.09f);
+
 }
 
 void SignComponent::resized()
 {
+
+}
+
+void SignComponent::drawShadowText(Graphics & g, String const& text, float const& relY, float const& relHeight) const
+{
+    DrawableText dt;
+    dt.setBoundingBox(Rectangle <float> (0, getHeight() * relY, getWidth(), getHeight() * (relHeight + 0.01f)));
+    dt.setFont(Font(getHeight() * relHeight), true);
+    dt.setJustification(Justification::centredTop);
+    dt.setColour(Colour::fromString(config->getTextColour()));
+    dt.setText(text);
+    
+    if (config->getShadow() == "1")
+    {
+        Path p = dt.getOutlineAsPath();
+        
+        DropShadow drop (Colours::black, 8, Point <int> (0, 0));
+        drop.drawForPath(g, p);
+    }
+    
+    dt.drawAt(g, 0, 0, 1);
 
 }
 

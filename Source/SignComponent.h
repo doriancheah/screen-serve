@@ -54,6 +54,7 @@ private:
     
     Colour getSignColour(SignModes const& mode) const;
 
+    void drawShadowText(Graphics & g, String const& text, float const& relY, float const& relHeight) const;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SignComponent)
 };
