@@ -118,6 +118,10 @@ String SConfig::getTextColour() const
 
 String SConfig::getShadow() const
 {
+    if (! config->hasProperty("shadow"))
+    {
+        return "1";
+    }
     return config->getProperty("shadow");
 }
 
